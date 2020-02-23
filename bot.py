@@ -9,17 +9,18 @@ bot = telebot.TeleBot(config.token)
 print("redy!")
 @bot.message_handler(commands=['start','help'])
 def start_command(message):
-	mark = types.InlineKeyboardMarkup(row_width=1)
-	help_c = types.InlineKeyboardButton('Помощь',callback_data='help')
-	cb_c = types.InlineKeyboardButton('Предложения и замечяния',callback_data='callback')
-	mark.add(help_c,cb_c)
-	bot.send_message(message.chat.id, "Привет, я бот который в любой момент может выслать тебе расписание!\
-		Для того что-бы получить расписание напиши мне дату или день недели!",reply_markup=mark)
-	if message.text == 'Помощь':
-		bot.send_message(message.chat.id, "Напиши \"/help\"")
-	elif message.text == 'Предложения и замечяния':
-		bot.send_message(message.chat.id, 'У тебя есть замечяние или предложение, тогда напиши комманду\
-			\"/callback\", и мы обязательно прочтем твой отзыв!')
+    print("@" + message.chat.username + " Start using bot!")
+    mark = types.InlineKeyboardMarkup(row_width=1)
+    help_c = types.InlineKeyboardButton('Помощь',callback_data='help')
+    cb_c = types.InlineKeyboardButton('Предложения и замечяния',callback_data='callback')
+    mark.add(help_c,cb_c)
+    bot.send_message(message.chat.id, "Привет, я бот который в любой момент может выслать тебе расписание!\
+    	Для того что-бы получить расписание напиши мне дату или день недели!",reply_markup=mark)
+    if message.text == 'Помощь':
+    	bot.send_message(message.chat.id, "Напиши \"/help\"")
+    elif message.text == 'Предложения и замечяния':
+    	bot.send_message(message.chat.id, 'У тебя есть замечяние или предложение, тогда напиши комманду\
+    		\"/callback\", и мы обязательно прочтем твой отзыв!')
 @bot.message_handler(commands=['callback'])
 def callback(message):
     cbmessage = bot.send_message(message.chat.id,"Напиши мне отзыв, и его прочитает мой творец!")
@@ -46,7 +47,7 @@ def send_group_id(message):
 def sorry_content_type_err(message):
 	bot.send_message(message.chat.id, "Извини но я понимаю только текст! Напиши \"/help\" если нужна помощь!")
 ##################
-"""@bot.message_handler(commands=['hometaskMath'])
+@bot.message_handler(commands=['htMath'])
 def new_hometask(message):
     bot.send_message(message.chat.id, "Новое дз?")
     newdz = bot.send_message(message.chat.id, "Присылай его мне")
@@ -57,7 +58,7 @@ def set_new_ht(message):
     ht.close()
     bot.send_message(message.chat.id, "Ок, запомню!")
 #####################
-@bot.message_handler(commands=['hometaskEng'])
+@bot.message_handler(commands=['htEng'])
 def new_hometask(message):
     bot.send_message(message.chat.id, "Новое дз?")
     newdz = bot.send_message(message.chat.id, "Присылай его мне")
@@ -68,7 +69,7 @@ def set_new_ht(message):
     ht.close()
     bot.send_message(message.chat.id, "Ок, запомню!")
 ####################
-@bot.message_handler(commands=['hometaskInr'])
+@bot.message_handler(commands=['htInr'])
 def new_hometask(message):
     bot.send_message(message.chat.id, "Новое дз?")
     newdz = bot.send_message(message.chat.id, "Присылай его мне")
@@ -77,7 +78,51 @@ def set_new_ht(message):
     ht = open("hometaskInr.dat","w") 
     ht.write(message.text)
     ht.close()
-    bot.send_message(message.chat.id, "Ок, запомню!")"""
+    bot.send_message(message.chat.id, "Ок, запомню!")
+#####################
+@bot.message_handler(commands=['htHist'])
+def new_hometask(message):
+    bot.send_message(message.chat.id, "Новое дз?")
+    newdz = bot.send_message(message.chat.id, "Присылай его мне")
+    bot.register_next_step_handler(newdz, set_new_ht)
+def set_new_ht(message):
+    ht = open("hometaskHist.dat","w") 
+    ht.write(message.text)
+    ht.close()
+    bot.send_message(message.chat.id, "Ок, запомню!")
+#####################
+@bot.message_handler(commands=['htBio'])
+def new_hometask(message):
+    bot.send_message(message.chat.id, "Новое дз?")
+    newdz = bot.send_message(message.chat.id, "Присылай его мне")
+    bot.register_next_step_handler(newdz, set_new_ht)
+def set_new_ht(message):
+    ht = open("hometaskBio.dat","w") 
+    ht.write(message.text)
+    ht.close()
+    bot.send_message(message.chat.id, "Ок, запомню!")
+#####################
+@bot.message_handler(commands=['htGeo'])
+def new_hometask(message):
+    bot.send_message(message.chat.id, "Новое дз?")
+    newdz = bot.send_message(message.chat.id, "Присылай его мне")
+    bot.register_next_step_handler(newdz, set_new_ht)
+def set_new_ht(message):
+    ht = open("hometaskGeo.dat","w") 
+    ht.write(message.text)
+    ht.close()
+    bot.send_message(message.chat.id, "Ок, запомню!")
+#####################
+@bot.message_handler(commands=['htFiz'])
+def new_hometask(message):
+    bot.send_message(message.chat.id, "Новое дз?")
+    newdz = bot.send_message(message.chat.id, "Присылай его мне")
+    bot.register_next_step_handler(newdz, set_new_ht)
+def set_new_ht(message):
+    ht = open("hometaskFiz.dat","w") 
+    ht.write(message.text)
+    ht.close()
+    bot.send_message(message.chat.id, "Ок, запомню!")
 
 
 @bot.message_handler(content_types=['sticker'])
@@ -93,6 +138,7 @@ def send_random_sticker(message):
     pc = [pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8]
     pic = r.choice(pc)
     bot.send_sticker(message.chat.id, pic)
+    print("@"+message.chat.username + " take sticker from bot!")
 
 @bot.message_handler(content_types=["text"])
 def repeat_all_messages(message): # Название функции не играет никакой роли, в принципе
@@ -119,50 +165,63 @@ def repeat_all_messages(message): # Название функции не игр�
     #if message.text == u"Математика":
         global MDhometaskMath, MDhometaskEng, MDhometaskInr, MDhometaskFiz, MDhometaskHist, MDhometaskBio, MDhometaskNem, MDhometaskGeo, MDhometaskUkrL\
             , MDhometaskUkrM, MDhometaskArt, MDhometaskChmstr, MDhometaskGeom
-        MDhtm = open("MDhometask/MDhometaskMath.dat","r")
+        MDhtm = open("MDhometask/MDhometaskMath.dat","r", encoding="utf8")
        	MDhometaskMath = MDhtm.readline()
+        MDhtm.close()
         #######################
-        MDhte = open("MDhometask/MDhometaskEng.dat","r")
+        MDhte = open("MDhometask/MDhometaskEng.dat","r", encoding="utf8")
         MDhometaskEng = MDhte.readline()
+        MDhte.close()
         #######################
-        MDhti = open("MDhometask/MDhometaskInr.dat","r")
+        MDhti = open("MDhometask/MDhometaskInr.dat","r", encoding="utf8")
         MDhometaskInr = MDhti.readline()
+        MDhti.close()
         #######################
-        MDhthist = open("MDhometask/MDhometaskHist.dat","r")
+        MDhthist = open("MDhometask/MDhometaskHist.dat","r", encoding="utf8")
         MDhometaskHist = MDhthist.readline()
+        MDhthist.close()
         #######################
-        MDhtfiz = open("MDhometask/MDhometaskFiz.dat","r")
+        MDhtfiz = open("MDhometask/MDhometaskFiz.dat","r", encoding="utf8")
         MDhometaskFiz = MDhtfiz.readline()
+        MDhtfiz.close()
         #######################
-        MDhtbio = open("MDhometask/MDhometaskBio.dat","r")
+        MDhtbio = open("MDhometask/MDhometaskBio.dat","r", encoding="utf8")
         MDhometaskBio = MDhtbio.readline()
+        MDhtbio.close()
         #######################
-        MDhtnem = open("MDhometask/MDhometaskNem.dat","r")
+        MDhtnem = open("MDhometask/MDhometaskNem.dat","r", encoding="utf8")
         MDhometaskNem = MDhtnem.readline()
+        MDhtnem.close()
         #######################
-        MDhtgeo = open("MDhometask/MDhometaskGeo.dat","r")
+        MDhtgeo = open("MDhometask/MDhometaskGeo.dat","r", encoding="utf8")
         MDhometaskGeo = MDhtgeo.readline()
+        MDhtgeo.close()
         #######################
-        MDhtukrl = open("MDhometask/MDhometaskUkrL.dat","r")
+        MDhtukrl = open("MDhometask/MDhometaskUkrL.dat","r", encoding="utf8")
         MDhometaskUkrL = MDhtukrl.readline()
+        MDhtukrl.close()
         #######################
-        MDhtukrm = open("MDhometask/MDhometaskUkrM.dat","r")
+        MDhtukrm = open("MDhometask/MDhometaskUkrM.dat","r", encoding="utf8")
         MDhometaskUkrM = MDhtukrm.readline()
+        MDhtukrm.close()
         #######################
-        MDhtart = open("MDhometask/MDhometaskArt.dat","r")
+        MDhtart = open("MDhometask/MDhometaskArt.dat","r", encoding="utf8")
         MDhometaskArt = MDhtart.readline()
+        MDhtart.close()
         #######################
-        MDhtchmstr = open("MDhometask/MDhometaskChmstr.dat","r")
+        MDhtchmstr = open("MDhometask/MDhometaskChmstr.dat","r", encoding="utf8")
         MDhometaskChmstr = MDhtchmstr.readline()
+        MDhtchmstr.close()
         #######################
-        MDhtgeom = open("MDhometask/MDhometaskGeom.dat","r")
+        MDhtgeom = open("MDhometask/MDhometaskGeom.dat","r", encoding="utf8")
         MDhometaskGeom = MDhtgeom.readline()
+        MDhtgeom.close()
        	#htm.close()
        	#bot.send_message(message.chat.id, "Каб: 104")
        	#bot.send_message(message.chat.id, "Преподователь: Антонина Александровна")
        	#bot.send_message(message.chat.id, "ДЗ:"+hometask)
 
-        print("1")
+        print("@"+message.chat.username + "-Mondey")
     elif message.text == u"Вторник" or message.text == u"вторник":#THUESDAY############
         """tsd = open('images/schedule/Thuesday.png', 'rb')
         bot.send_photo(message.chat.id, tsd)"""
@@ -178,7 +237,7 @@ def repeat_all_messages(message): # Название функции не игр�
         bot.send_message(message.chat.id, "<b>ВТОРНИК</b>",parse_mode='html',reply_markup=TUinlinekeyb)
         ##############
 
-        print("2")
+        print("@"+message.chat.username + "-Tuesday")
     elif message.text == u"Среда" or message.text == u"среда":#WEDENSDAY###############
         """wd = open('images/schedule/Wedensday.png', 'rb')
         bot.send_photo(message.chat.id, wd)"""
@@ -193,7 +252,7 @@ def repeat_all_messages(message): # Название функции не игр�
         WDinlinekeyb.add(firstless,secondless,thirdless,forthless,fivsless,sixsless)
         bot.send_message(message.chat.id, "<b>СРЕДА</b>",parse_mode='html',reply_markup=WDinlinekeyb)
         ##############
-        print("3")
+        print("@"+message.chat.username + "-Wedensday")
     elif message.text == u"Четверг" or message.text == u"четверг":#THURSDAY############
         """trd = open('images/schedule/Thursday.png', 'rb')
         bot.send_photo(message.chat.id, trd)"""
@@ -208,7 +267,7 @@ def repeat_all_messages(message): # Название функции не игр�
         TRinlinekeyb.add(firstless,secondless,thirdless,forthless,fivsless,sixsless)
         bot.send_message(message.chat.id, "<b>ЧЕТВЕРГ</b>",parse_mode='html',reply_markup=TRinlinekeyb)
         ##############
-        print("4")
+        print("@"+message.chat.username + "-Thursday")
     elif message.text == u"Пятница" or message.text == u"пятница":#FRIDAY##############
         """fd = open('images/schedule/Friday.png', 'rb')
         bot.send_photo(message.chat.id, fd)"""
@@ -224,7 +283,11 @@ def repeat_all_messages(message): # Название функции не игр�
         bot.send_message(message.chat.id, "<b>ПЯТНИЦА</b>",parse_mode='html',reply_markup=FRinlinekeyb)
         ##############
     
-        print("5")
+        print("@"+message.chat.username + "-Friday")
+    elif message.text == "Субота" or message.text == "субота":
+        bot.send_message(message.chat.id, "Сегодня субота, можешь отдохнуть!!!)))")
+    elif message.text == "Воскресенье" or message.text == "воскресенье":
+        bot.send_message(message.chat.id, "Сегодня ВОСКРЕСЕНЬЕ отдыхай!!!!!!)))")
     else:
     	#bot.send_message(message.chat.id,"『  Прости я непонял  』")
         bot.send_message(message.chat.id, "Кажется ты написал...")
@@ -236,63 +299,63 @@ def callback_inline(call):
         if call.message:
             global hometaskMath, hometaskEng, hometaskInr
             if call.data == 'math_cd':
-                bot.send_message(call.message.chat.id, "<b>МАТЕМАТИКА</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>МАТЕМАТИКА</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 104")
                 bot.send_message(call.message.chat.id, "Преподователь: Антонина Александровна")
                 global MDhometaskMath, MDhometaskEng, MDhometaskInr, MDhometaskFiz, MDhometaskHist, MDhometaskBio, MDhometaskNem, MDhometaskGeo, MDhometaskUkrL\
             , MDhometaskUkrM, MDhometaskArt, MDhometaskChmstr, MDhometaskGeom
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskMath)
             elif call.data == 'eng_cd':
-                bot.send_message(call.message.chat.id, "<b>АНГЛИЙСКИЙ</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>АНГЛИЙСКИЙ</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 104")
                 bot.send_message(call.message.chat.id, "Преподователь: Светлана Анатольевна")
                 global MDhometaskEng, MDhometaskInr, MDhometaskFiz, MDhometaskHist, MDhometaskBio, MDhometaskNem, MDhometaskGeo, MDhometaskUkrL\
             , MDhometaskUkrM, MDhometaskArt, MDhometaskChmstr, MDhometaskGeom
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskEng)
             elif call.data == 'inform_cd':
-                bot.send_message(call.message.chat.id, "<b>ИНФОРМАТИКА</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>ИНФОРМАТИКА</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 301")
                 bot.send_message(call.message.chat.id, "Преподователь: Дмитрий Владимирович")
                 global MDhometaskInr, MDhometaskFiz, MDhometaskHist, MDhometaskBio, MDhometaskNem, MDhometaskGeo, MDhometaskUkrL\
             , MDhometaskUkrM, MDhometaskArt, MDhometaskChmstr, MDhometaskGeom
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskInr)
             elif call.data == 'help':
-                bot.send_message(call.message.chat.id, "<b>ПОМОЩЬ</b>", parse_mode='html')
-                bot.send_message(call.message.chat.id, "Мой творец создал меня для того что-бы я давал вам расписание на любой рабочий день недели!", parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>ПОМОЩЬ</u>", parse_mode='html')
+                bot.send_message(call.message.chat.id, "Мой <pre>творец</pre> создал меня для того что-бы я давал вам расписание на любой рабочий день недели!", parse_mode='html')
                 bot.send_message(call.message.chat.id, "Просто напиши <i>Понедельник</i> или <i>вторник</i>, и я пришлю тебе расписание на этот день!", parse_mode='html')
-                bot.send_message(call.message.chat.id, "<b>Мой творец</b> - <samp>'<b>@tesla33IO</b>'</samp>", parse_mode='html')
+                bot.send_message(call.message.chat.id, "Мой творец - <b><code>@tesla33IO</code></b>", parse_mode='html')
             elif call.data == 'callback':
                 bot.send_message(call.message.chat.id, "<b>Для связи с творцом напиши кооманду <i>/callback</i> или напиши ему лично(<i>@tesla33IO</i>)</b>", parse_mode='html')
             elif call.data == "fiz_cd":
-                bot.send_message(call.message.chat.id, "<b>ФИЗИКА</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>ФИЗИКА</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 304")
                 bot.send_message(call.message.chat.id, "Преподователь: Ирина Сергеевна")
                 global MDhometaskFiz, MDhometaskHist, MDhometaskBio, MDhometaskNem, MDhometaskGeo, MDhometaskUkrL\
             , MDhometaskUkrM, MDhometaskArt, MDhometaskChmstr, MDhometaskGeom
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskFiz)
             elif call.data == 'hist_cd':
-                bot.send_message(call.message.chat.id, "<b>ИСТОРИЯ</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>ИСТОРИЯ</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 104")
                 bot.send_message(call.message.chat.id, "Преподователь: Вера Александровна")
                 global MDhometaskHist, MDhometaskBio, MDhometaskNem, MDhometaskGeo, MDhometaskUkrL\
             , MDhometaskUkrM, MDhometaskArt, MDhometaskChmstr, MDhometaskGeom
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskHist)
             elif call.data == 'ukrm_cd':
-                bot.send_message(call.message.chat.id, "<b>УКР. МОВА</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>УКР. МОВА</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 104")
                 bot.send_message(call.message.chat.id, "Преподователь: Инна Ивановна")
                 global MDhometaskBio, MDhometaskNem, MDhometaskGeo, MDhometaskUkrL\
             , MDhometaskUkrM, MDhometaskArt, MDhometaskChmstr, MDhometaskGeom
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskUkrM)
             elif call.data == 'ukrl_cd':
-                bot.send_message(call.message.chat.id, "<b>УКР. ЛИТЕРАТУРА</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>УКР. ЛИТЕРАТУРА</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 104")
                 bot.send_message(call.message.chat.id, "Преподователь: Инна Ивановна")
                 global MDhometaskBio, MDhometaskNem, MDhometaskGeo, MDhometaskUkrL\
             ,MDhometaskArt, MDhometaskChmstr
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskUkrL)
             elif call.data == 'art_cd':
-                bot.send_message(call.message.chat.id, "<b>ИСКУСТВО</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>ИСКУСТВО</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 118")
                 bot.send_message(call.message.chat.id, "Преподователь: Юлия Валентиновна")
                 global MDhometaskBio, MDhometaskNem, MDhometaskGeo\
@@ -301,26 +364,26 @@ def callback_inline(call):
             elif call.data == 'pe_cd':
                 bot.send_message(call.message.chat.id, "Просто возьми форму!")
             elif call.data == 'nem_cd':
-                bot.send_message(call.message.chat.id, "<b>НЕМЕЦКИЙ</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>НЕМЕЦКИЙ</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 104")
                 bot.send_message(call.message.chat.id, "Преподователь: Валерия Сергеевна")
                 global MDhometaskBio, MDhometaskNem, MDhometaskGeo\
             ,MDhometaskChmstr
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskNem)
             elif call.data == 'bio_cd':
-                bot.send_message(call.message.chat.id, "<b>БИОЛОГИЯ</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>БИОЛОГИЯ</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 104")
                 bot.send_message(call.message.chat.id, "Преподователь: Елена Михайловна")
                 global MDhometaskBio,MDhometaskGeo,MDhometaskChmstr
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskBio)
             elif call.data == 'geo_cd':
-                bot.send_message(call.message.chat.id, "<b>ГЕОГРАФИЯ</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>ГЕОГРАФИЯ</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 104")
                 bot.send_message(call.message.chat.id, "Преподователь: Елена Еагеньевна")
                 global MDhometaskGeo, MDhometaskChmstr
                 bot.send_message(call.message.chat.id, "ДЗ:" + MDhometaskGeo)
             elif call.data == 'chm_cd':
-                bot.send_message(call.message.chat.id, "<b>ХИМИЯ</b>",parse_mode='html')
+                bot.send_message(call.message.chat.id, "<u>ХИМИЯ</u>",parse_mode='html')
                 bot.send_message(call.message.chat.id, "Каб: 308")
                 bot.send_message(call.message.chat.id, "Преподователь: Светлана Анатольевна")
                 global MDhometaskChmstr
